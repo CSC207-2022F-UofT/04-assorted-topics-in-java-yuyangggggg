@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Trader<T> {
+public abstract class Trader<T> {
     private final List<T> inventory;
     private final List<T> wishlist;
     private int money;
@@ -39,17 +39,19 @@ public class Trader<T> {
      *       representing the Trader's money. Give the Trader
      *       empty ArrayLists for their inventory and wishlist.
      */
-
-
-
+    public Trader(int money) {
+        this.inventory = new ArrayList<>();
+        this.wishlist = new ArrayList<>();
+        this.money = money;
+    }
 
 
     /* TODO: Implement the method addToWishlist that takes an
      *       object of type T and adds it to this Trader's wishlist.
      */
-
-
-
+    public void addToWishList(T item) {
+        this.wishlist.add(item);
+    }
 
 
     /* TODO: Implement the method getSellingPrice that takes an
@@ -59,9 +61,14 @@ public class Trader<T> {
      *
      *       We will call this in exchangeMoney().
      */
-
-
-
+    public int getSellingPrice(T item) {
+        if (item instanceof Tradable) {
+            int price = ((Tradable) item).getPrice();
+            return price;
+        } else {
+            return Tradable.MISSING_PRICE;
+        }
+    }
 
 
     /**
@@ -134,12 +141,12 @@ public class Trader<T> {
         return details.toString();
     }
 
-    public List<T> getWishlist(){
+    public List<T> getWishlist() {
         return this.wishlist;
     }
 
-    public List<T> getInventory(){
+    public List<T> getInventory() {
         return this.inventory;
     }
-
 }
+

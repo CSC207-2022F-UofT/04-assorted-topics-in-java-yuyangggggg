@@ -28,6 +28,7 @@ class DomesticatableTrader extends Trader<Domesticatable> {
      * @param money     The Trader's money
      */
     public DomesticatableTrader(int money) {
+
         super(money);
     }
 
